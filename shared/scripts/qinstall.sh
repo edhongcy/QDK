@@ -588,23 +588,27 @@ get_qpkg_status(){
 register_qpkg(){
 	$CMD_ECHO "Set QPKG information in $SYS_QPKG_CONFIG_FILE"
 	[ -f $SYS_QPKG_CONFIG_FILE ] || $CMD_TOUCH $SYS_QPKG_CONFIG_FILE
+	$CMD_GETCFG $QPKG_NAME $SYS_QPKG_CONF_FIELD_NAME -f $SYS_QPKG_CONFIG_FILE
+	if [ "$?" != "0" ] || [ "$QPKG_CONF_RESET" != "0" ]; then
+		set_qpkg_name
+		set_qpkg_version
+		set_qpkg_author
 
-	set_qpkg_name
-	set_qpkg_version
-	set_qpkg_author
-
-	set_qpkg_file_name
-	set_qpkg_install_date
-	set_qpkg_service_path
-	set_qpkg_service_port
-	set_qpkg_service_pid
-	set_qpkg_install_path
-	set_qpkg_config_path
-	set_qpkg_web_url
-	set_qpkg_web_port
-	set_qpkg_web_ssl_port
-	set_qpkg_rc_number
-	set_qpkg_desktop_app
+		set_qpkg_file_name
+		set_qpkg_install_date
+		set_qpkg_service_path
+		set_qpkg_service_port
+		set_qpkg_service_pid
+		set_qpkg_install_path
+		set_qpkg_config_path
+		set_qpkg_web_url
+		set_qpkg_web_port
+		set_qpkg_web_ssl_port
+		set_qpkg_rc_number
+		set_qpkg_desktop_app
+	else
+		set_qpkg_version
+	fi
 }
 
 ##################
